@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
@@ -19,12 +20,12 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="nav navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Profs" asp-action="Index"><img style="height:18px; padding-right:5px" src="~/img/Vector.png" />Преподавателю</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Studs" asp-action="CheckEyes"><img style="height:18px; padding-right:5px" src="~/img/Vector.png" />Преподавателю</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Studs" asp-action="VideoConference"><img style="width:20px;padding-right:5px" src="~/img/cil_clipboard.png"/>Студенту</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Studs" asp-action="VideoConference"><img style="width:20px;padding-right:5px" src="~/img/cil_clipboard.png" />Студенту</a>
                         </li>
-                        
+
                     </ul>
                 </div>
             </div>
@@ -43,6 +44,10 @@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="~/js/opencv.js" type="text/javascript"></script>
+    <script src="~/js/adapter-5.0.4.js" type="text/javascript"></script>
+    <script src="~/js/utils.js" type="text/javascript"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>
