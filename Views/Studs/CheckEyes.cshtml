@@ -9,8 +9,8 @@
 </head>
 <body>
     <div class="form-inline btnAllert">
-        <a href="" id="booring" class="btn btn-success"><img src="~/img/cil_lightbulb.png" alt="Alternate Text" /></a>
-        <a href="" id="understand" class="btn btn-success"><img src="~/img/cil_mood-good.png" alt="Alternate Text" /></a>
+        <button href="" id="booring" class="btn btn-success"><img src="~/img/cil_lightbulb.png" alt="Alternate Text" /></button>
+        <button href="" id="understand" class="btn btn-success"><img src="~/img/cil_mood-good.png" alt="Alternate Text" /></button>
     </div>
     <p class="err" id="errorMessage"></p>
     <div>
@@ -41,8 +41,11 @@
         utils.loadCode('codeSnippet', 'codeEditor');
 
         let streaming = false;
+        let understandCheker = false;
         let videoInput = document.getElementById('videoInput');
-        let startAndStop = document.getElementById('startAndStop');
+        let startAndStop = document.getElementById('booring');
+        let understand = document.getElementById('understand');
+
         let canvasOutput = document.getElementById('canvasOutput');
         let canvasContext = canvasOutput.getContext('2d');
 
@@ -54,11 +57,22 @@
                 utils.stopCamera();
                 onVideoStopped();
             }
-        });
-
+            return true;
+        }, false);
+        understand.addEventListener('click', () => {
+            if (understandCheker) {
+                $("#videoInput").hide();
+                $("#canvasOutput").hide();
+            }
+            else {
+                $("#videoInput").show();
+                $("#canvasOutput").show();
+            }
+            understandCheker = !understandCheker;
+            return false;
+        })
         function onVideoStarted() {
             streaming = true;
-            startAndStop.innerText = 'Stop';
             videoInput.width = videoInput.videoWidth;
             videoInput.height = videoInput.videoHeight;
             startRecognation();
@@ -120,7 +134,7 @@
                             let circleColor = new cv.Scalar(255, 153, 102);
                             cv.circle(dst, center, 1, circleColor);
 
-                            
+
                         }
                         if (i == 0) {
                             EyeEventX.push(Math.round(point1.x + (face.width / 2)));
@@ -194,9 +208,8 @@
         function onVideoStopped() {
             streaming = false;
             canvasContext.clearRect(0, 0, canvasOutput.width, canvasOutput.height);
-            startAndStop.innerText = 'Start';
         }
-        
+
         utils.loadOpenCv(() => {
             let faceCascadeFile = '../haarcascade_frontalface_default.xml';
             utils.createFileFromUrl(faceCascadeFile, faceCascadeFile, () => {
@@ -207,6 +220,8 @@
             utils.createFileFromUrl(faceCascadeEye, faceCascadeEye, () => {
                 startAndStop.removeAttribute('disabled');
             });
+            $("#videoInput").hide();
+            $("#canvasOutput").hide();
             utils.startCamera('qvga', onVideoStarted, 'videoInput');
         });
 
