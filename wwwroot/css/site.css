@@ -69,3 +69,74 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+@font-face {
+    font-family: Jost;
+    src: url(Jost-700-Bold.ttf);
+}
+.navbar
+{
+    height:80px;
+}
+.navbar-brand {
+    position: absolute;
+    width: 134px;
+    height: 35px;
+    left: 45px;
+    top: 23px;
+    font-family: Jost;
+    font-style: normal;
+    font-weight: 1;
+    font-size: 24px;
+    line-height: 35px;
+    /* identical to box height */
+    display: flex;
+    align-items: center;
+}
+.videoFrame {
+    height: 380px;
+    width: 100%;
+    background-image:url('../img/image 2.png');
+}
+main {
+    background-color: #F8F8F8;
+}
+.chatFrame
+{
+    background-color:white;
+    padding:0;
+}
+.tags {
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+    /* identical to box height */
+    display: flex;
+    align-items: center;
+}
+.tagsFrame
+{
+    padding-left:0;
+}
+.tagsFrame li {
+    display: inline; /* Отображать как строчный элемент */
+    margin-right: 5px; /* Отступ слева */
+    padding: 3px; /* Поля вокруг текста */
+}
+.chat {
+    position: relative;
+}
+.chat-message {
+    position: absolute;
+    bottom: 0;
+}
+.btnAllert
+{
+    padding-top:20px;
+}
+.btnAllert .btn {
+    border-radius: 25px;
+    height: 44px;
+    margin-right:5px;
+}
