@@ -10,6 +10,7 @@ namespace VirusHackKodShredinger.Repository
         
         public DateTime TimeStamp { get; set; }
 
-        public int State { get; set; }
+        public double State1 { get; set; }
+        public double State2 { get; set; }
     }
 }

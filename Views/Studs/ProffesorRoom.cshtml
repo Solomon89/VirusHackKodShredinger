@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewData["Title"] = "ProffesorRoom";
+}
+    <div class="container" style="padding-right: 0;background-color:white" >
+        <div class="row">
+            <div class="rainbowData">
+
+            </div>
+        </div>
+        <div class="row feelingGroup">
+            <div class="col-4">
+                <button id="lavel" class="btn btn-primary">
+                    92
+                </button>
+                Уровень вовлеченности аудитории (определяется автоматически)
+            </div>
+            <div class="col-4">
+                <button id="interest" class="btn btn-success">
+                    <img src="~/img/cil_mood-good.png" alt="" />
+                </button>
+                Лекция интересна вашей аудитории. Так держать!
+            </div>
+            <div class="col-4">
+                <button id="booring" class="btn btn-warning">
+                    <img src="~/img/cil_lightbulb.png" alt="" />
+                </button>
+                Лекция не слишком понятна аудитории. Возможно, стоит разъяснить подробнее.
+            </div>
+        </div>
+
+    </div>
+    <partial name="~/Views/Studs/VideoConference.cshtml" />
+<script>
+    jQuery(document).ready(function () {
+        $("#btnAllert").hide();
+    });
+    
+</script>

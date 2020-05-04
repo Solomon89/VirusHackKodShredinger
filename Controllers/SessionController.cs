@@ -28,7 +28,8 @@ namespace VirusHackKodShredinger.Controllers
             {
                 JobId = request.JobId,
                 StudentId = request.StudentId,
-                State = request.State,
+                State1 = request.State1,
+                State2 = request.State2,
                 TimeStamp = request.TimeStamp ?? DateTime.Now
             };
             await _context.Sessions.AddAsync(session);
@@ -44,7 +45,7 @@ namespace VirusHackKodShredinger.Controllers
                 .AsEnumerable()
                 .GroupBy(
                     x => x.StudentId,
-                (_, sessions) => sessions.OrderByDescending(x => x.TimeStamp).First().State)
+                (_, sessions) => sessions.OrderByDescending(x => x.TimeStamp).First().State1)
                 .ToList();
 
             var collectionCount = collection.Any()
@@ -59,7 +60,8 @@ namespace VirusHackKodShredinger.Controllers
     {
         public long JobId { get; set; }
         public long StudentId { get; set; }
-        public int State { get; set; }
+        public float State1 { get; set; }
+        public float State2 { get; set; }
 
         public DateTime? TimeStamp { get; set; }
     }

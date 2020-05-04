@@ -7,6 +7,7 @@
     <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
 </head>
 <body>
     <header>
@@ -20,7 +21,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="nav navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Studs" asp-action="CheckEyes"><img style="height:18px; padding-right:5px" src="~/img/Vector.png" />Преподавателю</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Studs" asp-action="ProffesorRoom"><img style="height:18px; padding-right:5px" src="~/img/Vector.png" />Преподавателю</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Studs" asp-action="VideoConference"><img style="width:20px;padding-right:5px" src="~/img/cil_clipboard.png" />Студенту</a>
@@ -42,7 +43,7 @@
             &copy; 2020 - VirusHackKodShredinger - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     @RenderSection("Scripts", required: false)
 </body>

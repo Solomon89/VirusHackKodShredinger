@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using VirusHackKodShredinger.Hubs;
 using VirusHackKodShredinger.Repository;
 
 namespace VirusHackKodShredinger
@@ -38,7 +39,7 @@ namespace VirusHackKodShredinger
             }.ConnectionString;
 
             services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionString));
-
+            services.AddSignalR();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "VirusHack", Version = "v1" });
@@ -78,6 +79,7 @@ namespace VirusHackKodShredinger
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapHub<ChatHub>("/chatHub");
             });
         }
     }

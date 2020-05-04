@@ -16,6 +16,11 @@ namespace VirusHackKodShredinger.Controllers
         {
             return View();
         }
+        public IActionResult ProffesorRoom(int? id)
+        {
+
+            return View();
+        }
         public IActionResult CheckEyes()
         {
             return View();
