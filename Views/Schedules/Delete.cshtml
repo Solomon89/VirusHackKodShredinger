@@ -27,14 +27,14 @@
             @Html.DisplayNameFor(model => model.People)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.People.Id)
-        </dd class>
+            @Html.DisplayFor(model => model.People.Name)
+        </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Subject)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Subject.Id)
-        </dd class>
+            @Html.DisplayFor(model => model.Subject.Name)
+        </dd>
     </dl>
     
     <form asp-action="Delete">
