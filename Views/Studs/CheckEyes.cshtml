@@ -5,19 +5,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
     <title>Video Capture Example</title>
-    <link href="~/js/js_example_style.css" rel="stylesheet" type="text/css">
+    
 </head>
 <body>
-    <h2>Video Capture Example</h2>
-    <p>
-        Click <b>Start/Stop</b> button to start or stop the camera capture.<br>
-        The <b>videoInput</b> is a &lt;video&gt; element used as OpenCV.js input.
-        The <b>canvasOutput</b> is a &lt;canvas&gt; element used as OpenCv.js output.<br>
-        The code of &lt;textarea&gt; will be executed when video is started.
-        You can modify the code to investigate more.
-    </p>
-    <div>
-        <div class="control"><button id="startAndStop">Start</button></div>
+    <div class="form-inline btnAllert">
+        <a href="" id="booring" class="btn btn-success"><img src="~/img/cil_lightbulb.png" alt="Alternate Text" /></a>
+        <a href="" id="understand" class="btn btn-success"><img src="~/img/cil_mood-good.png" alt="Alternate Text" /></a>
     </div>
     <p class="err" id="errorMessage"></p>
     <div>
@@ -25,20 +18,10 @@
             <tbody>
                 <tr>
                     <td>
-                        <video id="videoInput" width="320" height="240" data-video="0"></video>
+                        <video id="videoInput" width="50" height="50" data-video="0"></video>
                     </td>
                     <td>
-                        <canvas id="canvasOutput" width="320" height="240"></canvas>
-                    </td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="caption">videoInput</div>
-                    </td>
-                    <td>
-                        <div class="caption">canvasOutput</div>
+                        <canvas id="canvasOutput" width="50" height="50"></canvas>
                     </td>
                     <td></td>
                     <td></td>
@@ -50,7 +33,7 @@
     <script src="~/js/adapter-5.0.4.js" type="text/javascript"></script>
     <script src="~/js/utils.js" type="text/javascript"></script>
     <script id="codeSnippet" type="text/code-snippet">
-        
+
     </script>
     <script type="text/javascript">
         let utils = new Utils('errorMessage');
@@ -134,19 +117,24 @@
                             cv.rectangle(dst, point1Y, point2Y, [0, 0, 255, 255]);
                             //cv.circle(dst, (point1.x + eyes.get(j).x + (eyes.get(j).width / 2), point1.y + eyes.get(j).y + (eyes.get(j).height / 2)), 10, (0, 0, 255), -1);
                             let center = new cv.Point(point1.x + eyes.get(j).x + (eyes.get(j).width / 2), point1.y + eyes.get(j).y + (eyes.get(j).height / 2));
-                            let circleColor = new cv.Scalar(255, 0, 0);
+                            let circleColor = new cv.Scalar(255, 153, 102);
                             cv.circle(dst, center, 1, circleColor);
 
-                            if (j == 0) {
-                                EyeEventX.push(center.x);
-                                EyeEventY.push(center.y);
-                                current++;
-                                if (current == 100) {
-                                    console.log("X:" + standardDeviation(EyeEventX));
-                                    console.log("Y:" +standardDeviation(EyeEventY));
-                                    current = 0;
-
-                                }
+                            
+                        }
+                        if (i == 0) {
+                            EyeEventX.push(Math.round(point1.x + (face.width / 2)));
+                            EyeEventY.push(Math.round(point1.y + (face.height / 2)));
+                            current++;
+                            if (current == 100) {
+                                let sdvY = standardDeviation(EyeEventY);
+                                let sdvX = standardDeviation(EyeEventX);
+                                showInfo(sdvY, sdvX);
+                                console.log("X:SD:" + standardDeviation(EyeEventX) + " AVG:" + average(EyeEventX));
+                                console.log("Y:SD:" + standardDeviation(EyeEventY) + " AVG:" + average(EyeEventY));
+                                current = 0;
+                                EyeEventX = new Array();
+                                EyeEventY = new Array();
                             }
                         }
                     }
@@ -161,6 +149,24 @@
 
             // schedule the first one.
             setTimeout(processVideo, 0);
+        }
+        function showInfo(stdY, stdX) {
+            if (stdY < 10) {
+                $("#booring").addClass('btn-success')
+                $("#booring").removeClass('btn-danger')
+            }
+            else {
+                $("#booring").removeClass('btn-success')
+                $("#booring").addClass('btn-danger')
+            }
+            if (stdX < 15) {
+                $("#understand").addClass('btn-success')
+                $("#understand").removeClass('btn-danger')
+            }
+            else {
+                $("#understand").removeClass('btn-success')
+                $("#understand").addClass('btn-danger')
+            }
         }
         function standardDeviation(values) {
             var avg = average(values);
@@ -190,7 +196,7 @@
             canvasContext.clearRect(0, 0, canvasOutput.width, canvasOutput.height);
             startAndStop.innerText = 'Start';
         }
-
+        
         utils.loadOpenCv(() => {
             let faceCascadeFile = '../haarcascade_frontalface_default.xml';
             utils.createFileFromUrl(faceCascadeFile, faceCascadeFile, () => {
@@ -201,7 +207,9 @@
             utils.createFileFromUrl(faceCascadeEye, faceCascadeEye, () => {
                 startAndStop.removeAttribute('disabled');
             });
+            utils.startCamera('qvga', onVideoStarted, 'videoInput');
         });
+
     </script>
 
 

@@ -18,7 +18,7 @@ namespace VirusHackKodShredinger.Controllers
         }
         public IActionResult CheckEyes()
         {
-            return PartialView();
+            return View();
         }
     }
 }
