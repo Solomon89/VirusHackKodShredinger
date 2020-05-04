@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -37,14 +39,43 @@ namespace VirusHackKodShredinger.Controllers
         public IActionResult KeepALive(janusIncoming janusIncoming)
         {
             janusOutgoing janusOutgoing = new janusOutgoing(janusIncoming, janusIncoming.janus);
-            if (janusIncoming.janus == events.attach.ToString())
-            {
+
                 janusOutgoing.janus = "success";
-                janusOutgoing.data.Add("Id","14552147855");
-            }
+                janusOutgoing.data.Add("id","14552147855");
+            
             return new JsonResult(janusOutgoing);
         }
+        [Route("Janus/{id}/{plugin}")]
+        [HttpPost]
+        public async Task<IActionResult> PluginEvents(janusOutgoungIncoming janusOutgoungIncoming)
+        {
+            //janusOutgoungPlugin janusOutgoungPlugin = (janusOutgoungPlugin)janusIncoming;
+            //janusOutgoungPlugin.body.Add("audio", "true");
+            //janusOutgoungPlugin.body.Add("type", "offer");
+            //janusOutgoungPlugin.body.Add("sdp", "v=0\r\no=[..more sdp stuff..]");
+            string data;
+            using (StreamReader reader = new StreamReader(Request.Body, Encoding.UTF8))
+            {
+                data = await reader.ReadToEndAsync();
+            }
+            
+            return new JsonResult(new
+            {
+                videoroom = "event",
+                configured = "ok"
+            });
+        }
+        [Route("Janus/{id}/{pluginId}")]
+        [HttpGet]
+        public IActionResult PluginEventGet(janusIncoming janusIncoming)
+        {
+            janusOutgoungPlugin janusOutgoungPlugin = (janusOutgoungPlugin)janusIncoming;
+            janusOutgoungPlugin.body.Add("audio", "true");
+            janusOutgoungPlugin.body.Add("type", "offer");
+            janusOutgoungPlugin.body.Add("sdp", "v=0\r\no=[..more sdp stuff..]");
 
+            return new JsonResult(janusOutgoungPlugin);
+        }
     }
     public enum events
     {
@@ -55,6 +86,7 @@ namespace VirusHackKodShredinger.Controllers
     }
     public class janusIncoming
     {
+        public int id { get; set; }
         public string janus { get; set; }
         public string transaction { get; set; }
         public string sender { get; set; }
@@ -87,4 +119,24 @@ namespace VirusHackKodShredinger.Controllers
             data = new Dictionary<string, string>();
         }
     }
+    public class janusOutgoungPlugin : janusIncoming
+    {
+        public Dictionary<string,string> body { get; set; }
+        public Dictionary<string,string> jsep { get; set; }
+    }
+    public class janusOutgoungIncoming: janusIncoming
+    {
+        public body body { get; set; }
+    }
+    public class body
+    {
+        public bool audio { get; set; }
+        public bool video { get; set; }
+        public string display { get; set; }
+        public string ptype { get; set; }
+        public string request { get; set; }
+        public int room { get; set; }
+    }
+   
+
 }
