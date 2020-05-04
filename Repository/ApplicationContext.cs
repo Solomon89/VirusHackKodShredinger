@@ -44,5 +44,7 @@ namespace VirusHackKodShredinger.Repository
         public DbSet<People> Peoples { get; set; }
         public DbSet<Schedule> Schedules { get; set; }
         public DbSet<Subject> Subjects { get; set; }
+
+        public DbSet<Session> Sessions { get; set; }
     }
 }

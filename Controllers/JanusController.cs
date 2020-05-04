@@ -11,6 +11,7 @@ namespace VirusHackKodShredinger.Controllers
 {
     [Route("")]
     [ApiController]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class JanusController : ControllerBase
     {
         [Route("Janus")]
